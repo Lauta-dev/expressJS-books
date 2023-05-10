@@ -1,7 +1,34 @@
+// importa funcion para hacer funionar __dirname
+import { __dirname } from "./__dirname.js"; 
+import { router } from "./router/index.js";
+
 import express from "express";
-const app = express();
-const port = 3000
+export const app = express();
 
-app.get("/", (_req, res) => res.send("Hola"))
+// Settings
+app.use(express.json())
+app.set('views', __dirname)
+app.set('view engine', 'ejs')
 
-app.listen(port, console.log("Server on port 3000"))
+// middlewares
+app.use((req, res, next) => {
+  const { method, httpVersion, protocol} = req
+  console.log({
+    "Metodo": method,
+    "Vercion HTTP": `${protocol} v${httpVersion}`,
+    "Estado": res.statusCode
+  })
+  next()
+})
+
+app.use(express.urlencoded({extended: false}))
+
+// Router
+app.use(router)
+
+// Static/public
+app.use(express.static(__dirname('public')));
+
+// 404
+app.use((_req, res) => res.status(404).send("Pág no encontrada"))
+
