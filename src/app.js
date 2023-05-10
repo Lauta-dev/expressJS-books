@@ -7,7 +7,7 @@ export const app = express();
 
 // Settings
 app.use(express.json())
-app.set('views', __dirname)
+app.set('views', __dirname('views'))
 app.set('view engine', 'ejs')
 
 // middlewares
