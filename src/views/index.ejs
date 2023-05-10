@@ -7,11 +7,20 @@
   <body>
     <div class='container'>
       <div class='row'>
-        <div class='card'>
-          <div class='card-body'>
-            <p>Text </p>
-          </div>
-        </div>
+        <% book.map(function(b) { %>
+            <div class='card'>
+              <div class-='card-header'>
+                <h1> <%= b.Title %> /  <%= b.author %></h1>
+              </div>
+              <div class='card-body'>
+                <p> Description: <%= b.description %> </p>
+                <img src="<%- b.image %>" alt="img">
+              </div>
+              <div class='card-footer'>
+                <a href="/delete/<%= b.id %>" class='btn btn-danger'>Delete</a>
+              </div>
+            </div>
+        <% }) %>
       </div>
     </div>
   
